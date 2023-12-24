@@ -3,19 +3,63 @@
 // Coloca o encoding para UTF8 para exibir acentuação
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-decimal precoInicial = 0;
-decimal precoPorHora = 0;
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+// Inicialização do Sistema
 
+// Declaração de variáveis
+decimal precoInicial = 0;
+string stringPrecoInicial = "";
+decimal precoPorHora = 0;
+string stringPrecoPorHora = "";
+
+// Mensagem de "bem vindo" + solicitação do preço inicial
 Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
                   "Digite o preço inicial:");
-precoInicial = Convert.ToDecimal(Console.ReadLine());
+stringPrecoInicial = Console.ReadLine();
+// Verifica se o usuário inseriu um número do tipo "decimal"
+while (true)
+    {
+        try
+        {
+            precoInicial = Convert.ToDecimal(stringPrecoInicial);
+            break; // Sai do loop se a conversão for bem-sucedida
+        }
+        catch
+        {
+            Console.WriteLine("Por favor, digite um número válido.");
+            stringPrecoInicial = Console.ReadLine();
+        }
+    }
 
+// Solicitação do preço por hora
 Console.WriteLine("Agora digite o preço por hora:");
-precoPorHora = Convert.ToDecimal(Console.ReadLine());
+stringPrecoPorHora = Console.ReadLine();
+// Verifica se o usuário inseriu um número do tipo "decimal"
+while (true)
+    {
+        try
+        {
+            precoPorHora = Convert.ToDecimal(stringPrecoPorHora);
+            break; // Sai do loop se a conversão for bem-sucedida
+        }
+        catch
+        {
+            Console.WriteLine("Por favor, digite um número válido.");
+            stringPrecoPorHora = Console.ReadLine();
+        }
+    }
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+// Dentro do Sistema
 
 // Instancia a classe Estacionamento, já com os valores obtidos anteriormente
 Estacionamento es = new Estacionamento(precoInicial, precoPorHora);
 
+// Declaração de variáveis
 string opcao = string.Empty;
 bool exibirMenu = true;
 
