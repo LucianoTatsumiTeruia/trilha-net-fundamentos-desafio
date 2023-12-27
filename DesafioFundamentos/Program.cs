@@ -14,6 +14,7 @@ decimal precoPorHora = 0;
 string stringPrecoPorHora = "";
 
 // Mensagem de "bem vindo" + solicitação do preço inicial
+Console.Clear();
 Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
                   "Digite o preço inicial:");
 stringPrecoInicial = Console.ReadLine();
@@ -96,7 +97,7 @@ while (exibirMenu)
             break;
     }
 
-    Console.WriteLine("Pressione uma tecla para continuar");
+    Console.WriteLine("\nPressione uma tecla para continuar");
     Console.ReadLine();
 }
 
