@@ -36,7 +36,9 @@ namespace DesafioFundamentos.Models
 
             // A expressão regular @"^[A-Z]{3}[0-9][A-Z][0-9]{2}$" corresponde a uma string que começa com três letras 
             //maiúsculas, seguida por um número, uma letra maiúscula e dois números.
-            Regex regex = new Regex(@"^[A-Z]{3}[0-9][A-Z][0-9]{2}$");
+            Regex novo = new Regex(@"^[A-Z]{3}[0-9][A-Z][0-9]{2}$");
+
+            Regex antigo = new Regex(@"^[A-Z]{3}[0-9]{4}$");
 
             // Verifica se o usuário inseriu uma placa válida
             while (true)
@@ -45,7 +47,7 @@ namespace DesafioFundamentos.Models
                 //regular.
                 
                 // Se a string corresponder ao padrão, IsMatch retornará true. Caso contrário, retornará false.
-                if (regex.IsMatch(adicionarVeiculo))
+                if (novo.IsMatch(adicionarVeiculo) || antigo.IsMatch(adicionarVeiculo))
                 {
                     if (veiculos.Any(x => x.ToUpper() == adicionarVeiculo.ToUpper()))
                     {
@@ -66,8 +68,9 @@ namespace DesafioFundamentos.Models
                 else
                 {
                     Console.WriteLine("\nA placa inserida é inválida. As placas devem seguir o padrão Mercosul: " +
-                                        "três letras, um número, uma letra e dois números (por exemplo, ABC1D23).");
-                    Console.WriteLine("Digite 'M' para voltar ao menu ou tente novamente.");
+                                    "três letras, um número, uma letra e dois números (por exemplo, ABC1D23),\nou o " + 
+                                    "modelo antigo do Brasil: três letras, seguidas de quatro números (por exemplo, ABC1234).");
+                    Console.WriteLine("\nDigite 'M' para voltar ao menu ou tente novamente.");
                     adicionarVeiculo = Console.ReadLine().ToUpper();
                     if (adicionarVeiculo.ToUpper() == "M")
                     {
@@ -97,21 +100,21 @@ namespace DesafioFundamentos.Models
                 int horas = 0;
                 while (true)
                 {
-                        try
+                    bool sucesso = int.TryParse(quantidadeDeHoras, out horas);
+                    if (sucesso && horas >= 0)
+                    {
+                        break; // Sai do loop se a conversão for bem-sucedida
+                    }
+                    else
+                    {
+                        Console.WriteLine("\nPor favor, digite um número válido. Ou digite 'M' para voltar ao menu.");
+                        quantidadeDeHoras = Console.ReadLine();
+                        if (quantidadeDeHoras.ToUpper() == "M")
                         {
-                            horas = int.Parse(quantidadeDeHoras);
-                            break; // Sai do loop se a conversão for bem-sucedida
-                        }
-                        catch
-                        {
-                            Console.WriteLine("\nPor favor, digite um número válido. Ou digite 'M' para voltar ao menu.");
-                            quantidadeDeHoras = Console.ReadLine();
-                            if (quantidadeDeHoras.ToUpper() == "M")
-                            {
-                                return; // Retorna ao menu se o usuário digitar 'M'
-                            }
+                            return; // Retorna ao menu se o usuário digitar 'M'
                         }
                     }
+                }
 
                     // Realiza o cálculo do valor total a ser pago   
                     decimal valorTotal = 0; 

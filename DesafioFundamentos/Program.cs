@@ -1,4 +1,8 @@
 ﻿using DesafioFundamentos.Models;
+using System.Globalization; // Diretiva que permite utilizar a classe "CultureInfo"
+
+// Coloca o "CultureInfo" do Brasil para utilizar no precoInicial e no precoPorHora
+CultureInfo culturePt = new CultureInfo("pt-BR");
 
 // Coloca o encoding para UTF8 para exibir acentuação
 Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -20,36 +24,40 @@ Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
 stringPrecoInicial = Console.ReadLine();
 // Verifica se o usuário inseriu um número do tipo "decimal"
 while (true)
+{
+    // Substitui todos os pontos por vírgulas
+    stringPrecoInicial = stringPrecoInicial.Replace('.', ',');
+    bool sucesso = Decimal.TryParse(stringPrecoInicial, NumberStyles.Number, culturePt, out precoInicial);
+    if (sucesso && precoInicial >= 0)
     {
-        try
-        {
-            precoInicial = Convert.ToDecimal(stringPrecoInicial);
-            break; // Sai do loop se a conversão for bem-sucedida
-        }
-        catch
-        {
-            Console.WriteLine("Por favor, digite um número válido.");
-            stringPrecoInicial = Console.ReadLine();
-        }
+        break; // Sai do loop se a conversão for bem-sucedida
     }
+    else
+    {
+        Console.WriteLine("Por favor, digite um número válido.");
+        stringPrecoInicial = Console.ReadLine();
+    }
+}
 
 // Solicitação do preço por hora
 Console.WriteLine("Agora digite o preço por hora:");
 stringPrecoPorHora = Console.ReadLine();
 // Verifica se o usuário inseriu um número do tipo "decimal"
 while (true)
+{
+    // Substitui todos os pontos por vírgulas
+    stringPrecoPorHora = stringPrecoPorHora.Replace('.', ',');
+    bool sucesso = Decimal.TryParse(stringPrecoPorHora, NumberStyles.Number, culturePt, out precoPorHora);
+    if (sucesso && precoPorHora >= 0)
     {
-        try
-        {
-            precoPorHora = Convert.ToDecimal(stringPrecoPorHora);
-            break; // Sai do loop se a conversão for bem-sucedida
-        }
-        catch
-        {
-            Console.WriteLine("Por favor, digite um número válido.");
-            stringPrecoPorHora = Console.ReadLine();
-        }
+        break; // Sai do loop se a conversão for bem-sucedida
     }
+    else
+    {
+        Console.WriteLine("Por favor, digite um número válido.");
+        stringPrecoPorHora = Console.ReadLine();
+    }
+}
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
